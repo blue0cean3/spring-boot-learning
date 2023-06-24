@@ -7,6 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import java.util.List;
 import java.util.Scanner;
 
 @SpringBootApplication
@@ -20,26 +21,69 @@ public class CrudDemoApplication {
 	@Bean
 	public CommandLineRunner commandLineRunner(StudentDAO studentDAO) {
 		return runner -> {
-			System.out.println("1. Create new student");
-			System.out.println("2. Read the student");
-			System.out.print("Enter the code: ");
 			int chosen = 0;
 			boolean isQuit = false;
 			do {
+				System.out.println("1. Create new student");
+				System.out.println("2. Read the student");
+				System.out.println("3. List out the Student");
+				System.out.println("0. Exit");
+				System.out.print("Enter the code: ");
 				chosen = sc.nextInt();
 				switch (chosen) {
 					case 1 -> createStudent(studentDAO);
 					case 2 -> readStudent(studentDAO);
+					case 3 -> queryForStudents(studentDAO);
+					case 0 -> {
+						isQuit = true;
+					}
 					default -> {
 						System.out.println("You enter wrong code. Please enter again: ");
-						chosen = 0;
 					}
 				}
-				if (chosen == 0) isQuit = true;
 			} while (!isQuit);
 		};
 	}
 
+	public void queryForStudents(StudentDAO studentDAO) {
+		int chosen = 0;
+		boolean isQuit = false;
+		do {
+			System.out.println("1. List all of student");
+			System.out.println("2. List all of student by last name");
+			System.out.println("3. List out the Student");
+			System.out.println("0. Exit");
+			System.out.print("Enter the code: ");
+			chosen = sc.nextInt();
+			switch (chosen) {
+				case 1 -> {
+					//get the list of student
+					List<Student> theStudents = studentDAO.findAll();
+					//display list of students
+					for (Student tempStudent : theStudents) {
+						System.out.println(tempStudent);
+					}
+				}
+				case 2 -> {
+					//get the list of student
+					System.out.print("Enter the last name you want to find: ");
+					String name = sc.next();
+					List<Student> theStudents = studentDAO.findByLastName(name);
+					//display list of students
+					for (Student tempStudent : theStudents) {
+						System.out.println(tempStudent);
+					}
+				}
+				case 3 -> queryForStudents(studentDAO);
+				case 0 -> {
+					isQuit = true;
+				}
+				default -> {
+					System.out.println("You enter wrong code. Please enter again: ");
+				}
+			}
+		} while (!isQuit);
+	}
 	private void readStudent(StudentDAO studentDAO) {
 
 		System.out.print("Enter the id of student to find: ");
@@ -50,7 +94,6 @@ public class CrudDemoApplication {
 		// display student
 		System.out.println("Found the student " + myStudent);
 	}
-
 	private void createStudent(StudentDAO studentDAO) {
 		boolean isQuit = false;
 		do {
