@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.zip.ZipEntry;
 
 @Repository
 public class StudentDAOImpl implements StudentDAO {
@@ -26,7 +25,6 @@ public class StudentDAOImpl implements StudentDAO {
     @Transactional  // perform update on databases and save store object on databases
     // handle the transaction management
     public void save(Student theStudent) {
-        // TODO document why this method is empty
         entityManager.persist(theStudent);  //save the student in database
     }
 
@@ -44,7 +42,7 @@ public class StudentDAOImpl implements StudentDAO {
         // FROM Student: JPQL syntax (Student) is entity name and entity field not database name
         // order by "entity name" desc or asc will sort by desc or asc (default is ascending)
 //        ascending: A - Z
-//        decending: Z - A
+//        descending: Z - A
         //return query result
         return theQuery.getResultList();
 
@@ -63,5 +61,25 @@ public class StudentDAOImpl implements StudentDAO {
         theQuery.setParameter("theData", theLastName);
         //return query results
         return theQuery.getResultList();
+    }
+
+    @Override
+    @Transactional
+    public void update(Student theStudent) {
+        entityManager.merge(theStudent);
+    }
+
+    @Override
+    @Transactional
+    public void delete(Integer studentID) {
+        // find id
+        Student theStudent = entityManager.find(Student.class, studentID);
+        entityManager.remove(theStudent);
+    }
+
+    @Override
+    @Transactional
+    public int deleteAll() {
+        return entityManager.createQuery("DELETE FROM Student ").executeUpdate();
     }
 }
