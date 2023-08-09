@@ -1,0 +1,6 @@
+/home/viet/Projects/spring-boot-learning/Section-04/04-crud-with-spring-data-jpa/src/main/java/com/luv2code/springboot/cruddemo/rest/EmployeeRestController.java
+/home/viet/Projects/spring-boot-learning/Section-04/04-crud-with-spring-data-jpa/src/main/java/com/luv2code/springboot/cruddemo/service/EmployeeService.java
+/home/viet/Projects/spring-boot-learning/Section-04/04-crud-with-spring-data-jpa/src/main/java/com/luv2code/springboot/cruddemo/entity/Employee.java
+/home/viet/Projects/spring-boot-learning/Section-04/04-crud-with-spring-data-jpa/src/main/java/com/luv2code/springboot/cruddemo/service/EmployeeServiceImpl.java
+/home/viet/Projects/spring-boot-learning/Section-04/04-crud-with-spring-data-jpa/src/main/java/com/luv2code/springboot/cruddemo/CruddemoApplication.java
+/home/viet/Projects/spring-boot-learning/Section-04/04-crud-with-spring-data-jpa/src/main/java/com/luv2code/springboot/cruddemo/dao/EmployeeRespository.java
